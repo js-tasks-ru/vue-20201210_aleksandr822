@@ -5,6 +5,5 @@
  * @param {Number} b - второе целое
  * @return {Number} сумма чисел a и b
  */
-export function sum(a, b) {
-  // Решение
-}
+
+export const sum = (a, b) => a + b;
