@@ -12,7 +12,7 @@ export const MeetupAgentaItem = {
       </div>
       <div class="meetup-agenda__item-col">{{ item.startsAt }} - {{ item.endsAt }}</div>
       <div class="meetup-agenda__item-col">
-        <h5 class="meetup-agenda__title">{{ defaultTitle }}</h5>
+      <h5 class="meetup-agenda__title">{{ defaultTitle }}</h5>
         <p v-if="item.type === 'talk'">
           <span>{{ item.speaker }}</span>
           <span class="meetup-agenda__dot"></span>
@@ -24,7 +24,7 @@ export const MeetupAgentaItem = {
   `,
   computed: {
     defaultTitle () {
-      if (this.item.title) {
+      if (this.item.title !== null) {
         return this.item.title
       } else {
         return agendaItemTitles[this.item.type]

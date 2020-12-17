@@ -10,8 +10,8 @@
 </head>
 <body>
 <div id="app">
-  <div>
-    <div class="meetup-cover" :style="`--bg-url: url('${meetupBackgrounById}')`">
+  <div v-if="meetupItem">
+    <div class="meetup-cover" :style="meetupItem.imageId ? { '--bg-url': `url('${ meetupBackgroundById }')` } : '' ">
       <h1 class="meetup-cover__title">{{ meetupItem.title }}</h1>
     </div>
     <div class="container">
@@ -35,7 +35,7 @@
             </li>
             <li>
               <img class="icon info-list__icon" alt="icon" src="/assets/icons/icon-cal-lg.svg" />
-              <time datetime="2020-02-31">{{ localdate(meetupItem.date) }}</time>
+              <time datetime="2020-02-31">{{ localdate }}</time>
             </li>
           </ul>
         </div>

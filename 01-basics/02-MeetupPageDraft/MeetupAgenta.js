@@ -10,8 +10,8 @@ export const MeetupAgenta = {
   },
   template: `
     <div class="meetup-agenda">
-      <p class="meetup-agenda__empty">Программа пока пуста, но когда-нибудь в ней обязательно что-нибудь появится!</p>
-      <meetup-agenta-item v-for="(items, id) in agenta" :key="id" :item="items"/>
+      <p class="meetup-agenda__empty" v-if="agenta">Программа пока пуста, но когда-нибудь в ней обязательно что-нибудь появится!</p>
+      <meetup-agenta-item v-for="items in agenta" :key="items.id" :item="items"/>
     </div>
   `
 }

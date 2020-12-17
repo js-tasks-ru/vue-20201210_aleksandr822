@@ -52,7 +52,7 @@ export const app = new Vue({
   },
   data () {
     return {
-      meetupItem: []
+      meetupItem: null
     }
   },
   mounted () {
@@ -63,17 +63,18 @@ export const app = new Vue({
       })
   },
   computed: {
-    meetupBackgrounById () {
-      return getMeetupCoverLink(this.meetupItem)
-    }
-  },
-  methods: {
-    localdate (date) {
-      return new Date(date).toLocaleString(navigator.language, {
+    meetupBackgroundById () {
+      if (!this.meetupItem) {
+        return null
+      }
+      return this.meetupItem.imageId ? getMeetupCoverLink(this.meetupItem) : undefined;
+    },
+    localdate () {
+      return new Date (this.meetupItem.date).toLocaleString(navigator.language, {
         year: 'numeric',
         month: 'long',
         day: 'numeric'
       })
     }
-  },
+  }
 });
