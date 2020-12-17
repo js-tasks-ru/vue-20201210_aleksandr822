@@ -1,4 +1,5 @@
 import Vue from './vue.esm.browser.js';
+import { MeetupAgenta } from './MeetupAgenta.js'
 
 /** URL адрес API */
 const API_URL = 'https://course-vue.javascript.ru/api';
@@ -18,7 +19,7 @@ function getMeetupCoverLink(meetup) {
 /**
  * Словарь заголовков по умолчанию для всех типов элементов программы
  */
-const agendaItemTitles = {
+export const agendaItemTitles = {
   registration: 'Регистрация',
   opening: 'Открытие',
   break: 'Перерыв',
@@ -32,8 +33,8 @@ const agendaItemTitles = {
 /**
  * Словарь иконок для для всех типов элементов программы.
  * Соответствует имени иконок в директории /assets/icons
- */
-const agendaItemIcons = {
+*/
+export const agendaItemIcons = {
   registration: 'key',
   opening: 'cal-sm',
   talk: 'tv',
@@ -46,21 +47,34 @@ const agendaItemIcons = {
 
 export const app = new Vue({
   el: '#app',
-
-  data: {
-    //
+  components: {
+    MeetupAgenta
   },
-
-  mounted() {
-    // Требуется получить данные митапа с API
+  data () {
+    return {
+      meetupItem: null
+    }
   },
-
+  mounted () {
+    fetch(`https://course-vue.javascript.ru/api/meetups/${MEETUP_ID}`)
+      .then(respons => respons.json())
+      .then(json => {
+        this.meetupItem = json
+      })
+  },
   computed: {
-    //
-  },
-
-  methods: {
-    // Получение данных с API предпочтительнее оформить отдельным методом,
-    // а не писать прямо в mounted()
-  },
+    meetupBackgroundById () {
+      if (!this.meetupItem) {
+        return null
+      }
+      return this.meetupItem.imageId ? getMeetupCoverLink(this.meetupItem) : undefined;
+    },
+    localdate () {
+      return new Date (this.meetupItem.date).toLocaleString(navigator.language, {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      })
+    }
+  }
 });
