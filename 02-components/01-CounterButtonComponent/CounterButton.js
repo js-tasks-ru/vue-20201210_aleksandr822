@@ -5,19 +5,14 @@ export const CounterButton = {
       default: 0
     }
   },
-  data () {
-    return {
-      myCount: this.count
-    }
-  },
   template: `
-    <button type="button" @click="myIncrement">
+    <button type="button" @click="myIncrement(count + 1)">
       {{ count }}
     </button>
   `,
   methods: {
-    myIncrement () {
-      this.$emit('increment', this.myCount+=1)
+    myIncrement (value) {
+      this.$emit('increment', value)
     }
   },
-};
+}
