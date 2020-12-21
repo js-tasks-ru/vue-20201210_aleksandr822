@@ -2,14 +2,14 @@ import { MeetupCover } from './MeetupCover.js';
 import { MeetupDescription } from './MeetupDescription.js';
 import { MeetupInfo } from './MeetupInfo.js';
 import { MeetupAgenda } from './MeetupAgenda.js';
-// import { getMeetupCoverLink } from './data.js';
+import { getMeetupCoverLink } from './data.js'
 
 export const MeetupView = {
   name: 'MeetupView',
   template: `
   <div v-if="meetup">
     <meetup-cover
-      :link="meetup.imageId"
+      :link="meetupBackgroundById"
       :title="meetup.title"
       :meetup="meetup"
     />
@@ -44,5 +44,13 @@ export const MeetupView = {
     MeetupDescription,
     MeetupInfo,
     MeetupAgenda
+  },
+  computed: {
+    meetupBackgroundById () {
+      if (!this.meetup) {
+        return null
+      }
+      return this.meetup.imageId ? getMeetupCoverLink(this.meetup) : undefined;
+    }
   }
 };
