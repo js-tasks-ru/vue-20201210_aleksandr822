@@ -10,7 +10,7 @@ export function scrollBehavior(to, from, savePosition) {
     return {
       selector: to.hash
     }
-  } else if (from.matched.some(record => record.meta.saveScrollPosition)) {
+  } else if (from.matched.some(record => record.meta.saveScrollPosition) && to.matched.some(record => record.meta.saveScrollPosition)) {
     return false
   } else {
     return { x: 0, y: 0 }
