@@ -1,4 +1,10 @@
-<template></template>
+<template>
+  <div>
+    <transition-group name="fade">
+      <slot />
+    </transition-group>
+  </div>
+</template>
 
 <script>
 export default {
@@ -6,7 +12,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .fade-list {
   position: relative;
 }
@@ -29,4 +35,5 @@ export default {
 .fade-list-move {
   transition: transform 0.3s;
 }
+
 </style>
