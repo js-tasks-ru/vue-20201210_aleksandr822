@@ -1,26 +1,17 @@
 <template>
-  <div
-    class="input-group"
-    :class="[
-      { 'input-group_icon': hasIconLeft, 'input-group_icon-left': hasIconLeft },
-      {
-        'input-group_icon': hasIconRight,
-        'input-group_icon-right': hasIconRight,
-      },
-    ]"
-  >
-    <img class="icon" />
+  <div class="input-group" :class="classIcon">
+    <slot name="left-icon" />
 
     <component
       :is="multiline ? 'textarea' : 'input'"
       class="form-control"
-      :class="{ 'form-control_sm': small, 'form-control_rounded': rounded }"
+      :class="classComponent"
       :value.prop="value"
       v-bind="$attrs"
       v-on="listeners"
     />
 
-    <img class="icon" />
+    <slot name="right-icon" />
   </div>
 </template>
 
@@ -48,6 +39,28 @@ export default {
     event: 'input',
   },
 
+  data() {
+    return {
+      iconLeft: false,
+      iconRight: false,
+    };
+  },
+
+  mounted() {
+    this.updateIcon();
+  },
+
+  updated() {
+    this.updateIcon();
+  },
+
+  methods: {
+    updateIcon() {
+      this.iconLeft = !!this.$slots['left-icon'];
+      this.iconRight = !!this.$slots['right-icon'];
+    },
+  },
+
   computed: {
     listeners() {
       return {
@@ -60,12 +73,18 @@ export default {
         },
       };
     },
-
-    hasIconLeft() {
-      return !!this.$slots['left-icon'];
+    classIcon() {
+      return {
+        'input-group_icon': this.iconLeft || this.iconRight,
+        'input-group_icon-left': this.iconLeft,
+        'input-group_icon-right': this.iconRight,
+      };
     },
-    hasIconRight() {
-      return !!this.$slots['right-icon'];
+    classComponent() {
+      return {
+        'form-control_sm': this.small,
+        'form-control_rounded': this.rounded,
+      };
     },
   },
 };
