@@ -1,16 +1,13 @@
 <template>
-  <div>
-    <transition name="fade">
-      <slot />
-    </transition>
-  </div>
+  <transition v-on="$listeners" v-bind="$attrs" name="fade">
+    <slot />
+  </transition>
 </template>
 
 <script>
 export default {
   name: 'FadeTransition',
-
-  inheritAttrs: false
+  inheritAttrs: false,
 };
 </script>
 

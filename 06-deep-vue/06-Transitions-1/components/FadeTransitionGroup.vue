@@ -1,14 +1,13 @@
 <template>
-  <div>
-    <transition-group name="fade">
-      <slot />
-    </transition-group>
-  </div>
+  <transition-group name="fade" v-on="$listeners" v-bind="$attrs">
+    <slot />
+  </transition-group>
 </template>
 
 <script>
 export default {
   name: 'FadeTransitionGroup',
+  inheritAttrs: false,
 };
 </script>
 
@@ -35,5 +34,4 @@ export default {
 .fade-list-move {
   transition: transform 0.3s;
 }
-
 </style>
